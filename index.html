@@ -65,7 +65,8 @@ button:hover {
 <body>
 
 <div class="box">
-<h2>Hey Dornika… just a quick one 😏</h2>
+
+<h2>Hey Dornika… just a quick one 😊</h2>
 
 <p>1. If studying was a sport, what medal would you win after all this revision?</p>
 <input id="q1">
@@ -102,24 +103,14 @@ Good luck with your exams… you might surprise yourself ✨
 
 <script>
 function check() {
-let a1 = document.getElementById("q1").value.toLowerCase();
-let a2 = document.getElementById("q2").value.toLowerCase();
-let a3 = document.getElementById("q3").value.toLowerCase();
-
-if (
-  (a1.includes("gold") || a1.includes("champ")) &&
-  (a2.includes("message") || a2.includes("notification") || a2.includes("someone")) &&
-  (a3.includes("care") || a3.includes("think") || a3.includes("support"))
-) {
+  // ANY ANSWER IS ACCEPTED 😄
   document.getElementById("surprise").style.display = "block";
   document.getElementById("error").innerText = "";
 
-  // PLAY MUSIC 🎵
-  document.getElementById("music").play();
-
-} else {
-  document.getElementById("error").innerText = "Hmm… something’s off 😅 try again";
-}
+  const music = document.getElementById("music");
+  music.play().catch(() => {
+    console.log("Autoplay blocked — user interaction required");
+  });
 }
 </script>
 
