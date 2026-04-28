@@ -44,7 +44,6 @@ body {
   background: #4a6fff;
 }
 
-/* 🎉 popup message */
 #popup {
   margin-top: 15px;
   font-weight: bold;
@@ -71,21 +70,25 @@ body {
 
 <h2>Hey Dornika… just a quick one 😊</h2>
 
+<!-- Q1 -->
 <div class="question">1. If studying was a sport?</div>
 <button class="option" onclick="answer('q1','gold')">🥇 Gold</button>
 <button class="option" onclick="answer('q1','silver')">🥈 Silver</button>
 <button class="option" onclick="answer('q1','bronze')">🥉 Bronze</button>
 
+<!-- Q2 -->
 <div class="question">2. Why do people check their phone?</div>
 <button class="option" onclick="answer('q2','someone important')">Someone important</button>
 <button class="option" onclick="answer('q2','just checking')">Just checking</button>
 <button class="option" onclick="answer('q2','checking time')">Checking time</button>
 
+<!-- Q3 -->
 <div class="question">3. If someone wishes you luck?</div>
 <button class="option" onclick="answer('q3','caring')">Caring</button>
 <button class="option" onclick="answer('q3','supporting')">Supporting</button>
 <button class="option" onclick="answer('q3','thinking about me')">Thinking about me</button>
 
+<!-- Q4 -->
 <div class="question">4. What do I call you every time?</div>
 <button class="option" onclick="answer('q4','chaloos')">Chaloos</button>
 <button class="option" onclick="answer('q4','kooshooloo')">Kooshooloo</button>
@@ -122,9 +125,9 @@ let answers = {
 function answer(q, val) {
   answers[q] = val;
 
-  let popup = document.getElementById("popup");
+  const popup = document.getElementById("popup");
 
-  // check correct answers step-by-step
+  // FINAL WIN CONDITION 🎉
   if (
     answers.q1 === "gold" &&
     answers.q2 === "someone important" &&
@@ -138,18 +141,19 @@ function answer(q, val) {
     return;
   }
 
-  // show per-click feedback
-  if (
+  // correct per-question feedback
+  const correct =
     (q === "q1" && val === "gold") ||
     (q === "q2" && val === "someone important") ||
     (q === "q3" && val === "caring") ||
-    (q === "q4" && val === "kooshooloo")
-  ) {
-    popup.style.display = "block";
+    (q === "q4" && val === "kooshooloo");
+
+  popup.style.display = "block";
+
+  if (correct) {
     popup.innerText = "🎉 Congrats! keep going 😊";
-    popup.style.color = "green";
+    popup.style.color = "lightgreen";
   } else {
-    popup.style.display = "block";
     popup.innerText = "😅 Not quite, try again";
     popup.style.color = "red";
   }
