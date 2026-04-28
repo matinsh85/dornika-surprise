@@ -9,8 +9,6 @@ body {
   font-family: Arial;
   text-align: center;
   padding: 40px;
-
-  /* 🎄 Christmas style background */
   background: linear-gradient(135deg, #0b3d2e, #1e7f5c, #b30000);
   color: white;
 }
@@ -46,16 +44,18 @@ body {
   background: #4a6fff;
 }
 
+/* 🎉 popup message */
+#popup {
+  margin-top: 15px;
+  font-weight: bold;
+  display: none;
+}
+
 #surprise {
   display: none;
   margin-top: 20px;
   font-size: 18px;
   animation: fadeIn 1.5s ease-in-out;
-}
-
-#error {
-  color: red;
-  margin-top: 10px;
 }
 
 @keyframes fadeIn {
@@ -71,47 +71,38 @@ body {
 
 <h2>Hey Dornika… just a quick one 😊</h2>
 
-<!-- Q1 -->
 <div class="question">1. If studying was a sport?</div>
 <button class="option" onclick="answer('q1','gold')">🥇 Gold</button>
 <button class="option" onclick="answer('q1','silver')">🥈 Silver</button>
 <button class="option" onclick="answer('q1','bronze')">🥉 Bronze</button>
 
-<!-- Q2 -->
 <div class="question">2. Why do people check their phone?</div>
 <button class="option" onclick="answer('q2','someone important')">Someone important</button>
 <button class="option" onclick="answer('q2','just checking')">Just checking</button>
 <button class="option" onclick="answer('q2','checking time')">Checking time</button>
 
-<!-- Q3 -->
 <div class="question">3. If someone wishes you luck?</div>
 <button class="option" onclick="answer('q3','caring')">Caring</button>
 <button class="option" onclick="answer('q3','supporting')">Supporting</button>
 <button class="option" onclick="answer('q3','thinking about me')">Thinking about me</button>
 
-<!-- Q4 -->
 <div class="question">4. What do I call you every time?</div>
 <button class="option" onclick="answer('q4','chaloos')">Chaloos</button>
 <button class="option" onclick="answer('q4','kooshooloo')">Kooshooloo</button>
 <button class="option" onclick="answer('q4','niki')">Niki</button>
 
-<p id="error"></p>
+<div id="popup"></div>
 
 <div id="surprise">
 🎉 Well… look at you Dornika 😄 <br><br>
 
-You actually got them all right… or close enough 😉 <br><br>
+You actually did it… nicely done 😉 <br><br>
 
-Not gonna lie, this was more about the vibe than the answers. <br><br>
-
-Just know someone’s been quietly rooting for you 👀 <br><br>
-
-Good luck with everything ✨
+Someone’s definitely been cheering you on 👀✨
 </div>
 
 </div>
 
-<!-- MUSIC -->
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
 
 <script>
@@ -125,7 +116,9 @@ let answers = {
 function answer(q, val) {
   answers[q] = val;
 
-  // check all answers
+  let popup = document.getElementById("popup");
+
+  // check correct answers step-by-step
   if (
     answers.q1 === "gold" &&
     answers.q2 === "someone important" &&
@@ -133,11 +126,26 @@ function answer(q, val) {
     answers.q4 === "kooshooloo"
   ) {
     document.getElementById("surprise").style.display = "block";
-    document.getElementById("error").innerText = "";
+    popup.style.display = "none";
 
     document.getElementById("music").play().catch(() => {});
+    return;
+  }
+
+  // show per-click feedback
+  if (
+    (q === "q1" && val === "gold") ||
+    (q === "q2" && val === "someone important") ||
+    (q === "q3" && val === "caring") ||
+    (q === "q4" && val === "kooshooloo")
+  ) {
+    popup.style.display = "block";
+    popup.innerText = "🎉 Congrats! keep going 😊";
+    popup.style.color = "green";
   } else {
-    document.getElementById("error").innerText = "Keep going 😊";
+    popup.style.display = "block";
+    popup.innerText = "😅 Not quite, try again";
+    popup.style.color = "red";
   }
 }
 </script>
