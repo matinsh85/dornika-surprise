@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Dornika 🤍</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #dfe9f3, #ffffff);
+  text-align: center;
+  padding: 40px;
+}
+
+.box {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 420px;
+  margin: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+input {
+  margin: 10px;
+  padding: 10px;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 12px 25px;
+  background: #6c8cff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4a6fff;
+}
+
+#surprise {
+  display: none;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+#error {
+  color: red;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+<h2>Hey Dornika… just a quick one 😏</h2>
+
+<p>1. If studying was a sport, what medal would you win after all this revision?</p>
+<input id="q1">
+
+<p>2. Be honest… what’s the real reason people check their phone every 5 minutes?</p>
+<input id="q2">
+
+<p>3. If someone quietly wishes you good luck before your exam… what are they probably doing?</p>
+<input id="q3">
+
+<br>
+<button onclick="check()">Let’s see 👀</button>
+
+<p id="error"></p>
+
+<div id="surprise">
+🎉 Well… look at you, Dornika 😄 <br><br>
+
+I had a feeling you’d get them right. <br><br>
+
+Not gonna say too much… but I think you already know what this was about. <br><br>
+
+Just know — someone’s been noticing the effort you’re putting in 👀 <br><br>
+
+And quietly hoping things go your way. <br><br>
+
+Good luck with your exams… you might surprise yourself ✨
+</div>
+
+</div>
+
+<!-- MUSIC -->
+<audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+
+<script>
+function check() {
+let a1 = document.getElementById("q1").value.toLowerCase();
+let a2 = document.getElementById("q2").value.toLowerCase();
+let a3 = document.getElementById("q3").value.toLowerCase();
+
+if (
+  (a1.includes("gold") || a1.includes("champ")) &&
+  (a2.includes("message") || a2.includes("notification") || a2.includes("someone")) &&
+  (a3.includes("care") || a3.includes("think") || a3.includes("support"))
+) {
+  document.getElementById("surprise").style.display = "block";
+  document.getElementById("error").innerText = "";
+
+  // PLAY MUSIC 🎵
+  document.getElementById("music").play();
+
+} else {
+  document.getElementById("error").innerText = "Hmm… something’s off 😅 try again";
+}
+}
+</script>
+
+</body>
+</html>
