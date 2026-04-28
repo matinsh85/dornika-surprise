@@ -38,10 +38,23 @@ body {
   background: #6c8cff;
   color: white;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .option:hover {
   background: #4a6fff;
+}
+
+/* 🎯 correct answer style */
+.correct {
+  background: #2ecc71 !important;
+  color: white;
+}
+
+/* ❌ wrong answer style */
+.wrong {
+  background: #e74c3c !important;
+  color: white;
 }
 
 #popup {
@@ -72,27 +85,27 @@ body {
 
 <!-- Q1 -->
 <div class="question">1. If studying was a sport?</div>
-<button class="option" onclick="answer('q1','gold')">🥇 Gold</button>
-<button class="option" onclick="answer('q1','silver')">🥈 Silver</button>
-<button class="option" onclick="answer('q1','bronze')">🥉 Bronze</button>
+<button class="option" id="q1-gold" onclick="answer('q1','gold',this)">🥇 Gold</button>
+<button class="option" id="q1-silver" onclick="answer('q1','silver',this)">🥈 Silver</button>
+<button class="option" id="q1-bronze" onclick="answer('q1','bronze',this)">🥉 Bronze</button>
 
 <!-- Q2 -->
 <div class="question">2. Why do people check their phone?</div>
-<button class="option" onclick="answer('q2','someone important')">Someone important</button>
-<button class="option" onclick="answer('q2','just checking')">Just checking</button>
-<button class="option" onclick="answer('q2','checking time')">Checking time</button>
+<button class="option" id="q2-1" onclick="answer('q2','someone important',this)">Someone important</button>
+<button class="option" id="q2-2" onclick="answer('q2','just checking',this)">Just checking</button>
+<button class="option" id="q2-3" onclick="answer('q2','checking time',this)">Checking time</button>
 
 <!-- Q3 -->
 <div class="question">3. If someone wishes you luck?</div>
-<button class="option" onclick="answer('q3','caring')">Caring</button>
-<button class="option" onclick="answer('q3','supporting')">Supporting</button>
-<button class="option" onclick="answer('q3','thinking about me')">Thinking about me</button>
+<button class="option" id="q3-1" onclick="answer('q3','caring',this)">Caring</button>
+<button class="option" id="q3-2" onclick="answer('q3','supporting',this)">Supporting</button>
+<button class="option" id="q3-3" onclick="answer('q3','thinking about me',this)">Thinking about me</button>
 
 <!-- Q4 -->
 <div class="question">4. What do I call you every time?</div>
-<button class="option" onclick="answer('q4','chaloos')">Chaloos</button>
-<button class="option" onclick="answer('q4','kooshooloo')">Kooshooloo</button>
-<button class="option" onclick="answer('q4','niki')">Niki</button>
+<button class="option" id="q4-1" onclick="answer('q4','chaloos',this)">Chaloos</button>
+<button class="option" id="q4-2" onclick="answer('q4','kooshooloo',this)">Kooshooloo</button>
+<button class="option" id="q4-3" onclick="answer('q4','niki',this)">Niki</button>
 
 <div id="popup"></div>
 
@@ -122,12 +135,12 @@ let answers = {
   q4: null
 };
 
-function answer(q, val) {
+function answer(q, val, btn) {
   answers[q] = val;
 
   const popup = document.getElementById("popup");
 
-  // FINAL WIN CONDITION 🎉
+  // WIN CONDITION 🎉
   if (
     answers.q1 === "gold" &&
     answers.q2 === "someone important" &&
@@ -141,19 +154,27 @@ function answer(q, val) {
     return;
   }
 
-  // correct per-question feedback
-  const correct =
-    (q === "q1" && val === "gold") ||
-    (q === "q2" && val === "someone important") ||
-    (q === "q3" && val === "caring") ||
-    (q === "q4" && val === "kooshooloo");
+  // reset same question buttons (so only one highlight shows)
+  document.querySelectorAll(`button[id^="${q}"]`).forEach(b => {
+    b.classList.remove("correct", "wrong");
+  });
+
+  // correct answer
+  const correctAnswers = {
+    q1: "gold",
+    q2: "someone important",
+    q3: "caring",
+    q4: "kooshooloo"
+  };
 
   popup.style.display = "block";
 
-  if (correct) {
+  if (val === correctAnswers[q]) {
+    btn.classList.add("correct");
     popup.innerText = "🎉 Congrats! keep going 😊";
     popup.style.color = "lightgreen";
   } else {
+    btn.classList.add("wrong");
     popup.innerText = "😅 Not quite, try again";
     popup.style.color = "red";
   }
